@@ -118,8 +118,8 @@ grant select on public.stores, public.products to anon, authenticated;
 grant insert, update, delete on public.stores to authenticated;
 grant select, insert, update, delete on public.store_members to authenticated;
 grant insert, update, delete on public.products to authenticated;
-grant select, insert, update on public.orders to authenticated;
-grant select, insert on public.order_items to authenticated;
+grant select, update on public.orders to authenticated;
+grant select on public.order_items to authenticated;
 
 -- Stores: catálogo público solo activo; propietario/equipo puede ver su espacio.
 create policy stores_public_read_active on public.stores
@@ -185,13 +185,8 @@ create policy orders_customer_or_store_read on public.orders
 for select to authenticated
 using (customer_id = (select auth.uid()) or private.is_store_member(store_id));
 
-create policy orders_customer_create on public.orders
-for insert to authenticated
-with check (
-  customer_id = (select auth.uid())
-  and status = 'pending'
-  and exists (select 1 from public.stores s where s.id = store_id and s.status = 'active')
-);
+-- El alta de pedidos se realiza exclusivamente mediante Edge Function/RPC transaccional
+-- que valide usuario, tienda, estado, stock y precios desde la base de datos.
 
 create policy orders_store_update on public.orders
 for update to authenticated
@@ -210,22 +205,9 @@ using (
   )
 );
 
-create policy order_items_customer_create on public.order_items
-for insert to authenticated
-with check (
-  exists (
-    select 1 from public.orders o
-    join public.products p on p.id = product_id and p.store_id = o.store_id
-    where o.id = order_id
-      and o.store_id = store_id
-      and o.customer_id = (select auth.uid())
-      and o.status = 'pending'
-      and p.is_active
-  )
-);
-
--- IMPORTANTE: subtotal, unit_price y product_name deben calcularse/capturarse
--- en una operación transaccional confiable del servidor, no confiar en valores
--- enviados por el navegador. Antes de habilitar checkout real, implementar RPC
--- validada o Edge Function que recalcule precios desde products y genere snapshot.
+-- IMPORTANTE: no se concede INSERT directo a authenticated en orders/order_items.
+-- Checkout debe implementarse como Edge Function/RPC transaccional que valide
+-- auth.uid(), tienda activa, productos activos, cantidades y precios actuales;
+-- debe calcular subtotal y guardar product_name/unit_price desde products.
+-- Nunca confiar en precios, subtotal, customer_id o store_id enviados por el navegador.
 -- Las políticas anteriores son un marco inicial y requieren pruebas de integración.
