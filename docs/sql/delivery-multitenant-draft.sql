@@ -114,11 +114,14 @@ alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 
 -- Grants mínimos. Revisar Data API settings del proyecto antes de aplicar.
+revoke all on public.stores, public.store_members, public.products, public.orders, public.order_items from anon, authenticated;
 grant select on public.stores, public.products to anon, authenticated;
-grant insert, update, delete on public.stores to authenticated;
-grant select, insert, update, delete on public.store_members to authenticated;
-grant insert, update, delete on public.products to authenticated;
-grant select, update on public.orders to authenticated;
+grant insert on public.stores to authenticated;
+grant update (name, category, description, phone, address, cover_path, updated_at) on public.stores to authenticated;
+grant select on public.store_members to authenticated;
+grant select, insert, delete on public.products to authenticated;
+grant update (name, description, price, image_path, is_active, updated_at) on public.products to authenticated;
+grant select, update (status, updated_at) on public.orders to authenticated;
 grant select on public.order_items to authenticated;
 
 -- Stores: catálogo público solo activo; propietario/equipo puede ver su espacio.
@@ -135,27 +138,13 @@ for update to authenticated
 using (private.is_store_member(id, array['manager']))
 with check (private.is_store_member(id, array['manager']));
 
-create policy stores_owner_delete on public.stores
-for delete to authenticated
-using (owner_user_id = (select auth.uid()));
-
 -- Members: cada usuario ve su membresía; owner/manager administra el equipo.
 create policy store_members_read_self_or_managers on public.store_members
 for select to authenticated
 using (user_id = (select auth.uid()) or private.is_store_member(store_id, array['manager']));
 
-create policy store_members_managers_add on public.store_members
-for insert to authenticated
-with check (private.is_store_member(store_id, array['manager']));
-
-create policy store_members_managers_update on public.store_members
-for update to authenticated
-using (private.is_store_member(store_id, array['manager']))
-with check (private.is_store_member(store_id, array['manager']));
-
-create policy store_members_managers_delete on public.store_members
-for delete to authenticated
-using (private.is_store_member(store_id, array['manager']));
+-- Altas, cambios de rol y bajas de colaboradores se ejecutan solo mediante
+-- Edge Function de invitaciones que valide permisos y aceptación del invitado.
 
 -- Products: lectura pública solo si tienda y producto están activos.
 create policy products_public_read_active on public.products
@@ -210,4 +199,6 @@ using (
 -- auth.uid(), tienda activa, productos activos, cantidades y precios actuales;
 -- debe calcular subtotal y guardar product_name/unit_price desde products.
 -- Nunca confiar en precios, subtotal, customer_id o store_id enviados por el navegador.
+-- La gestión de miembros también debe pasar por Edge Function de invitaciones.
+-- El estado de aprobación de la tienda queda reservado a un operador confiable.
 -- Las políticas anteriores son un marco inicial y requieren pruebas de integración.
