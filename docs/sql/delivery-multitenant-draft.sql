@@ -104,8 +104,8 @@ as $$
 $$;
 
 revoke all on function private.is_store_member(uuid, text[]) from public;
-grant usage on schema private to authenticated;
-grant execute on function private.is_store_member(uuid, text[]) to authenticated;
+grant usage on schema private to anon, authenticated;
+grant execute on function private.is_store_member(uuid, text[]) to anon, authenticated;
 
 alter table public.stores enable row level security;
 alter table public.store_members enable row level security;
@@ -174,7 +174,7 @@ create policy orders_customer_or_store_read on public.orders
 for select to authenticated
 using (customer_id = (select auth.uid()) or private.is_store_member(store_id));
 
--- El alta de pedidos se realiza exclusivamente mediante Edge Function/RPC transaccional
+-- El alta de pedidos y líneas se realiza exclusivamente mediante Edge Function/RPC transaccional
 -- que valide usuario, tienda, estado, stock y precios desde la base de datos.
 
 create policy orders_store_update on public.orders
@@ -182,7 +182,7 @@ for update to authenticated
 using (private.is_store_member(store_id, array['manager','staff']))
 with check (private.is_store_member(store_id, array['manager','staff']));
 
--- Líneas: el cliente solo agrega ítems a su pedido pendiente y productos de la misma tienda.
+-- Líneas: cliente y comercio solo leen líneas de pedidos autorizados.
 create policy order_items_customer_or_store_read on public.order_items
 for select to authenticated
 using (
