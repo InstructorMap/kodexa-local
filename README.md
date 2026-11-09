@@ -1,23 +1,20 @@
 # KODEXA Local
 
-Ecosistema de tres aplicaciones PWA independientes para Dolores, Buenos Aires:
+Ecosistema de tres aplicaciones PWA independientes para Dolores, Buenos Aires: Delivery, Movilidad y Turnos. Esta primera entrega incorpora un portal y prototipos funcionales locales.
 
-- **KODEXA Delivery** — plataforma de pedidos y comercios. Primera prioridad de desarrollo.
-- **KODEXA Movilidad** — solicitudes y gestión de viajes.
-- **KODEXA Turnos** — reservas y agendas para profesionales y comercios.
+## Abrir las aplicaciones
 
-## Arquitectura
+- Portal: `/`
+- KODEXA Delivery: `/apps/delivery/`
+- KODEXA Movilidad: `/apps/movilidad/`
+- KODEXA Turnos: `/apps/turnos/`
 
-Monorepo con aplicaciones independientes y paquetes compartidos. La primera etapa utiliza datos de demostración y no conecta Supabase ni procesa pagos reales.
+## Desarrollo
 
-## Principios
+No requiere build ni dependencias: JavaScript nativo, HTML y CSS. Servir el repositorio con cualquier servidor estático que respete rutas y módulos ES.
 
-- Mobile-first y experiencia PWA.
-- Datos de demostración claramente identificados.
-- Separación de permisos y datos por producto, comercio y rol.
-- Integración de backend y políticas RLS en una etapa posterior.
-- No asumir acuerdos comerciales, prestadores ni operaciones reales.
+## Importante
 
-## Estado
+Todos los datos y perfiles son demostrativos y se guardan únicamente en el navegador. No hay backend, usuarios reales, pagos, GPS ni pedidos/reservas/viajes enviados a terceros. Supabase permanece desconectado.
 
-Planificación inicial. KODEXA Delivery es la primera aplicación del roadmap.
+Ver [Arquitectura](docs/ARQUITECTURA.md) y [Roadmap](docs/ROADMAP.md).
