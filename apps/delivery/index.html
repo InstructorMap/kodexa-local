@@ -10,7 +10,12 @@
 <main class="page delivery-page">
 <nav class="top"><a class="brand" href="../../" aria-label="Yuna Go"><img src="../../assets/yuna-go/icon.svg" alt="" style="height:36px;width:36px;border-radius:10px;vertical-align:middle;margin-right:10px"><span style="font-weight:800;letter-spacing:-.03em">Yuna Go</span></a><a class="merchant-cta" href="#merchant" data-open-merchant>¿Tenés un comercio? <b>Sumate acá →</b></a><span class="pill">DEMO · DOLORES</span></nav>
 <header class="commerce-intro"><div><span class="commerce-kicker">YUNA GO <span class="commerce-live">● DEMO LOCAL</span></span><h1>¿Qué pedimos <em>hoy?</em></h1><p>Explorá comercios de tu ciudad, elegí tus favoritos y prepará tu pedido.</p></div><div class="commerce-intro-art" aria-hidden="true"><span>🍔</span><span>☕</span><span>🥐</span></div></header>
-<div class="featured-grid" id="featured-products"></div></section>
+<div class="tabs delivery-tabs"><button class="tab active" data-tab="catalog">Explorar</button><button class="tab" data-tab="orders">Mis pedidos <span id="order-count">0</span></button><button class="tab" data-tab="merchant">Mi comercio</button><button class="tab" data-tab="courier">Repartidores</button></div>
+<section id="catalog">
+<div class="catalog-heading"><div><p class="eyebrow">DESCUBRÍ Y PEDÍ</p><h2>Encontrá tu próximo favorito</h2><p class="muted">Comercios y productos de demostración</p></div></div>
+<div class="search-wrap"><span>⌕</span><input id="product-search" type="search" placeholder="Buscar comidas, café o comercios" aria-label="Buscar productos o comercios"></div>
+<div class="category-chips" id="category-chips"><button class="category-chip active" data-category="Todos">✨ Todo</button><button class="category-chip" data-category="Cafetería">☕ Café</button><button class="category-chip" data-category="Almacén">🥑 Almacén</button><button class="category-chip" data-category="Comidas">🍕 Comidas</button><button class="category-chip" id="favorites-toggle" aria-pressed="false">♡ Favoritos</button></div>
+<div class="featured-section"><div class="promo-heading"><div><p class="eyebrow">PARA DESCUBRIR</p><h2>Favoritos de la casa</h2></div></div><div class="featured-grid" id="featured-products"></div></div>
 <div class="layout"><div class="catalog-main">
     <div class="panel shop-panel"><div class="row between"><div><h2>Comercios destacados</h2><p class="muted">Propuestas para descubrir</p></div></div><div class="shop-grid" id="shops"></div></div>
     <div class="products-heading"><div><p class="eyebrow">SELECCIÓN DEL COMERCIO</p><h2 id="shop-title">Café de la Plaza</h2><p class="muted" id="shop-subtitle">Elegí tus favoritos</p></div></div>
