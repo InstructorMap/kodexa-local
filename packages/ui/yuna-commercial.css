@@ -1,0 +1,72 @@
+/* Yuna Commercial — task-first application UI, 2026 */
+:root{font-synthesis:none}
+body.module-delivery{--accent:#f35c36;--accent-soft:#fff0e9;background:#faf9f6}
+body.module-movilidad{--accent:#2769ec;--accent-soft:#eaf1ff;background:#f5f7fc}
+body.module-turnos{--accent:#8653dc;--accent-soft:#f2ebff;background:#f8f7fc}
+:where(.module-delivery,.module-movilidad,.module-turnos) .page{max-width:1240px}
+:where(.module-delivery,.module-movilidad,.module-turnos) .top{border-bottom:0}
+:where(.module-delivery,.module-movilidad,.module-turnos) .panel{background:#fff;box-shadow:0 8px 26px #1e2c4210}
+:where(.module-delivery,.module-movilidad,.module-turnos) .action{min-height:46px;font-size:14px}
+:where(.module-delivery,.module-movilidad,.module-turnos) input,:where(.module-delivery,.module-movilidad,.module-turnos) select{min-height:46px;background:#fff}
+:where(.module-delivery,.module-movilidad,.module-turnos) .tabs{gap:8px}
+:where(.module-delivery,.module-movilidad,.module-turnos) .tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.commerce-intro{display:flex;justify-content:space-between;align-items:center;gap:22px;min-height:215px;padding:30px 40px;margin:12px 0 20px;background:linear-gradient(112deg,#2c201b 0%,#493027 72%,#653d2c 100%);border-radius:27px;color:#fff;overflow:hidden;position:relative}
+.commerce-intro h1{font-size:clamp(39px,5vw,65px);letter-spacing:-.07em;line-height:1.05;margin:10px 0}
+.commerce-intro h1 em{font-style:normal;color:#ffad87}
+.commerce-intro p{max-width:460px;color:#f1dcd3;font-size:15px;margin:0}
+.commerce-kicker,.service-kicker{font-size:10px;font-weight:850;letter-spacing:.17em}
+.commerce-live{margin-left:10px;color:#ffcaab;letter-spacing:.05em}
+.commerce-intro-art{display:flex;align-items:center;justify-content:center;gap:0;flex:0 0 260px;height:155px;position:relative}
+.commerce-intro-art span{display:grid;place-items:center;width:116px;height:116px;flex-shrink:0;border-radius:50%;background:#fff5e7;font-size:60px;box-shadow:0 12px 30px #0003}
+.commerce-intro-art span:nth-child(1){transform:rotate(-14deg) translateX(18px);z-index:2}
+.commerce-intro-art span:nth-child(2){width:85px;height:85px;font-size:43px;background:#f6b778;transform:translate(-8px,-38px);z-index:1}
+.commerce-intro-art span:nth-child(3){width:85px;height:85px;font-size:43px;background:#ffe4a3;transform:translate(-46px,43px);z-index:3}
+.module-delivery .delivery-tabs{margin:12px 0 20px;border-bottom:0}
+.module-delivery .delivery-tabs .tab{background:#fff;border:1px solid #eee2da;color:#54463e;padding:11px 16px}
+.module-delivery .delivery-tabs .tab.active{background:#29231f;color:#fff;border-color:#29231f}
+.module-delivery .catalog-heading{margin:12px 0 16px}
+.module-delivery .catalog-heading h2{font-size:clamp(24px,3vw,34px)}
+.module-delivery .search-wrap{border:1px solid #e8ded8;box-shadow:0 6px 18px #5d44330a}
+.module-delivery .category-chips{padding:12px 0 23px}
+.module-delivery .shop-panel{border:0;background:transparent;box-shadow:none;padding:0}
+.module-delivery .shop-grid{gap:14px}
+.module-delivery .shop-card{box-shadow:0 8px 20px #33231b0c;border-radius:17px}
+.module-delivery .shop-photo{height:145px}
+.module-delivery .product-photo{height:185px}
+.module-delivery .cart-panel{border:1px solid #f0e2d8}
+.service-intro{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:32px 38px;margin:10px 0 22px;border-radius:24px;min-height:165px;position:relative;overflow:hidden}
+.module-movilidad .service-intro{background:linear-gradient(120deg,#11284e,#204e98);color:white}
+.module-turnos .service-intro{background:linear-gradient(120deg,#30204f,#6a44a9);color:white}
+.service-intro h1{font-size:clamp(34px,4.5vw,56px);letter-spacing:-.065em;line-height:1.06;margin:10px 0}
+.service-intro h1 em{font-style:normal;color:#b7d0ff}
+.module-turnos .service-intro h1 em{color:#e1c8ff}
+.service-intro p{margin:0;max-width:530px;color:#dbe6f6;font-size:14px}
+.module-turnos .service-intro p{color:#eee0ff}
+.service-intro-symbol{font-size:112px;line-height:1;font-weight:200;color:#ffffff25;transform:rotate(-10deg);margin-right:30px}
+:where(.module-movilidad,.module-turnos) .layout{grid-template-columns:minmax(0,1.4fr) minmax(275px,.8fr);gap:20px}
+:where(.module-movilidad,.module-turnos) .layout .panel:first-child{border:1px solid var(--line)}
+:where(.module-movilidad,.module-turnos) .layout h2{font-size:23px;letter-spacing:-.04em}
+:where(.module-movilidad,.module-turnos) .product-metrics{margin:20px 0}
+:where(.module-movilidad,.module-turnos) .product-metric{background:transparent;box-shadow:none}
+:where(.module-movilidad,.module-turnos) .layout .action:not(.secondary){width:100%;padding:15px}
+@media(max-width:800px){.commerce-intro-art{flex-basis:190px}.commerce-intro-art span{width:92px;height:92px;font-size:49px}:where(.module-movilidad,.module-turnos) .layout{grid-template-columns:1fr}}
+@media(max-width:600px){
+.commerce-intro{min-height:0;padding:21px 20px;margin:5px 0 14px;border-radius:19px}
+.commerce-intro h1{font-size:clamp(33px,9vw,45px);margin:8px 0}
+.commerce-intro p{font-size:12px;line-height:1.45}
+.commerce-kicker{font-size:9px}.commerce-live{font-size:8px}
+.commerce-intro-art{display:none}
+.module-delivery .delivery-tabs{margin:8px 0 12px;overflow-x:auto;flex-wrap:nowrap}
+.module-delivery .delivery-tabs .tab{font-size:11px;padding:9px 12px;white-space:nowrap;flex-shrink:0}
+.module-delivery .catalog-heading h2{font-size:24px}
+.module-delivery .shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.module-delivery .shop-photo{height:120px}
+.module-delivery .product-photo{height:140px}
+.service-intro{min-height:0;padding:22px 20px;margin:4px 0 15px;border-radius:19px}
+.service-intro h1{font-size:clamp(32px,8vw,42px);margin:8px 0}
+.service-intro p{font-size:12px;line-height:1.4}
+.service-kicker{font-size:9px;letter-spacing:.1em}
+.service-intro-symbol{font-size:55px;margin-right:0}
+:where(.module-movilidad,.module-turnos) .layout .panel{padding:18px}
+:where(.module-movilidad,.module-turnos) .product-metrics{gap:8px;margin:16px 0}
+}
