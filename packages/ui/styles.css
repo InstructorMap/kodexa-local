@@ -99,3 +99,31 @@ body.module-delivery{--accent:#f15b45;--accent-soft:#fff0e9;background:#fffaf6}
 .merchant-next p{max-width:700px}
 @media(max-width:720px){.merchant-layout{grid-template-columns:1fr}.merchant-cta{font-size:10px;margin-right:0}.merchant-dashboard-head{align-items:flex-start;flex-direction:column}.merchant-header{padding-top:20px}}
 @media(max-width:440px){.merchant-cta{white-space:normal;line-height:1.25;max-width:110px}.merchant-cta b{display:block}}
+
+/* KODEXA Local — unified product shell v2 */
+:where(.module-movilidad,.module-turnos) .page{max-width:1220px;margin:auto;padding:0 clamp(16px,3.8vw,48px)}
+:where(.module-movilidad,.module-turnos){background:radial-gradient(ellipse at 85% 0%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 42%),#f5f7fa}
+:where(.module-movilidad,.module-turnos) .page-head{position:relative;overflow:hidden;padding:55px clamp(22px,4vw,54px);margin:24px 0;border-radius:30px;background:linear-gradient(125deg,#152337,#263954);color:#fff;box-shadow:0 22px 48px #13263b25}
+:where(.module-movilidad,.module-turnos) .page-head:after{content:"";position:absolute;width:320px;height:320px;right:-70px;top:-130px;border:55px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:50%;opacity:.32;pointer-events:none}
+:where(.module-movilidad,.module-turnos) .page-head h1{font-size:clamp(42px,6vw,76px);line-height:1.02;letter-spacing:-.065em;margin:14px 0}
+:where(.module-movilidad,.module-turnos) .page-head>p:last-child{max-width:570px;color:#d3deeb;font-size:16px}
+:where(.module-movilidad,.module-turnos) .page-head .back{color:#c5d5e6}
+:where(.module-movilidad,.module-turnos) .panel{border-radius:22px;box-shadow:0 12px 40px #17212b0b}
+:where(.module-movilidad,.module-turnos) .panel h2{letter-spacing:-.045em}
+:where(.module-movilidad,.module-turnos) .action{transition:transform .2s,filter .2s}
+:where(.module-movilidad,.module-turnos) .action:hover{transform:translateY(-2px);filter:brightness(1.04)}
+:where(.module-movilidad,.module-turnos) input:focus-visible,:where(.module-movilidad,.module-turnos) select:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 35%,transparent);outline-offset:2px}
+.product-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 20px}
+.product-metric{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.product-metric strong{display:block;font-size:clamp(24px,3vw,32px);line-height:1.2;letter-spacing:-.06em}
+.product-metric span{display:block;font-size:11px;font-weight:750;color:var(--muted);margin-top:5px}
+.operations-title{font-size:13px;font-weight:800;letter-spacing:.03em;margin:10px 0}
+.ops-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}
+.ops-item:last-child{border-bottom:0}
+.ops-item>span{flex:1;min-width:160px}
+.ops-item strong,.ops-item small{display:block}
+.ops-item small{font-size:11px;color:var(--muted)}
+.ops-item select{max-width:185px;min-width:135px}
+:where(.module-movilidad,.module-turnos) .notice{line-height:1.5}
+@media(max-width:600px){.product-metrics{gap:7px}.product-metric{padding:13px 10px}.product-metric strong{font-size:22px}.product-metric span{font-size:9px}:where(.module-movilidad,.module-turnos) .page-head{padding:34px 24px;margin-top:14px;border-radius:22px}:where(.module-movilidad,.module-turnos) .page-head:after{right:-210px}}
+@media(prefers-reduced-motion:reduce){:where(.module-movilidad,.module-turnos) .action{transition:none}}
