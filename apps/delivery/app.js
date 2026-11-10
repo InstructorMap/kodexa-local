@@ -32,11 +32,32 @@ document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{activeCat
 $('favorites-toggle').onclick=()=>{showFavorites=!showFavorites;$('favorites-toggle').classList.toggle('active',showFavorites);$('favorites-toggle').setAttribute('aria-pressed',String(showFavorites));if(showFavorites){activeCategory='Todos';selected=shops.find(s=>s.products.some(p=>isFavorite(s.id,p[0])))||shops[0];document.querySelectorAll('[data-category]').forEach(x=>x.classList.toggle('active',x.dataset.category==='Todos'))}renderShops();renderProducts();if(showFavorites&&!favorites.length)toast('Todavía no guardaste favoritos')};
 document.querySelectorAll('[data-promo]').forEach(b=>b.onclick=()=>{const kind=b.dataset.promo;showFavorites=false;$('favorites-toggle').classList.remove('active');$('favorites-toggle').setAttribute('aria-pressed','false');activeCategory=kind;document.querySelectorAll('[data-category]').forEach(x=>x.classList.toggle('active',x.dataset.category===kind));selected=shops.find(s=>s.kind===kind)||shops[0];renderShops();renderProducts();$('catalog').scrollIntoView({behavior:'smooth',block:'start'})});
 $('clear-cart').onclick=()=>{cart=[];write('kd-cart',cart);renderCart();toast('Pedido vaciado')};
-$('place-order').onclick=()=>{if(!cart.length)return toast('Agregá al menos un producto.','error');if(new Set(cart.map(p=>p.shopId||p.shop)).size!==1)return toast('Cada pedido debe pertenecer a un solo comercio. Vaciá el carrito y volvé a elegir.','error');if(!$('address').value.trim())return toast('Ingresá una dirección de demostración.','error');const o={id:id(),date:dateTime(),items:cart,address:$('address').value.trim(),payment:$('payment').value,total:cart.reduce((a,p)=>a+p.price,0),status:'Recibido · demo'};orders.push(o);write('kd-orders',orders);cart=[];write('kd-cart',cart);renderCart();renderOrders();document.querySelector('[data-tab="orders"]').click();toast('Pedido demo registrado en este dispositivo')};
+$('place-order').onclick=()=>{if(!cart.length)return toast('Agregá al menos un producto.','error');if(new Set(cart.map(p=>p.shopId||p.shop)).size!==1)return toast('Cada pedido debe pertenecer a un solo comercio. Vaciá el carrito y volvé a elegir.','error');if(!$('address').value.trim())return toast('Ingresá una dirección de demostración.','error');const o={id:id(),date:dateTime(),items:cart,shopId:cart[0].shopId||null,shopName:cart[0].shop,address:$('address').value.trim(),payment:$('payment').value,total:cart.reduce((a,p)=>a+p.price,0),status:'Recibido · demo'};orders.push(o);write('kd-orders',orders);cart=[];write('kd-cart',cart);renderCart();renderOrders();document.querySelector('[data-tab="orders"]').click();toast('Pedido demo registrado en este dispositivo')};
 $('reset-demo').onclick=()=>{if(confirm('¿Borrar pedidos y carrito de este dispositivo?')){orders=[];cart=[];write('kd-orders',orders);write('kd-cart',cart);renderCart();renderOrders();toast('Datos de demostración restaurados')}};
 
 function currentMerchant(){return shops.find(s=>s.id===currentMerchantId)}
 function saveMerchantStores(){write('kd-merchant-stores',shops.filter(s=>!demoShops.some(d=>d.id===s.id)))}
+const demoOrderStages=['Recibido · demo','Aceptado · demo','Preparando · demo','Listo para retirar · demo','En camino · demo','Entregado · demo'];
+function renderMerchantOrders(store){
+ const root=$('merchant-orders-list'),count=$('merchant-order-count');
+ const mine=orders.filter(o=>o.shopId===store.id);
+ count.textContent=mine.length+' pedidos';
+ root.replaceChildren();
+ if(!mine.length){const p=document.createElement('p');p.className='empty';p.textContent='Todavía no hay pedidos de prueba para esta tienda. Podés crear uno desde Explorar.';root.append(p);return}
+ mine.slice().reverse().forEach(o=>{
+  const card=document.createElement('div');card.className='item';
+  const info=document.createElement('span'),title=document.createElement('strong'),detail=document.createElement('small');
+  title.textContent='Pedido '+o.id;
+  detail.textContent=o.date+' · '+o.items.length+' productos · '+money(o.total)+' · '+o.address;
+  info.append(title,detail);
+  const select=document.createElement('select');select.setAttribute('aria-label','Estado del pedido '+o.id);
+  demoOrderStages.forEach(stage=>{const option=document.createElement('option');option.value=stage;option.textContent=stage;select.append(option)});
+  if(!demoOrderStages.includes(o.status)){const option=document.createElement('option');option.value=o.status;option.textContent=o.status;select.prepend(option)}
+  select.value=o.status;
+  select.addEventListener('change',()=>{o.status=select.value;write('kd-orders',orders);renderOrders();toast('Estado demo actualizado');});
+  card.append(info,select);root.append(card);
+ });
+}
 function renderMerchantDashboard(){
  const store=currentMerchant();
  $('merchant-onboarding').classList.toggle('hidden',!!store);
@@ -45,6 +66,7 @@ function renderMerchantDashboard(){
  $('merchant-store-title').textContent=store.name;
  $('merchant-store-meta').textContent=store.kind+' · '+store.address+' · Contacto: '+store.phone;
  $('merchant-product-count').textContent=store.products.length+' productos';
+ renderMerchantOrders(store);
  $('merchant-products-list').innerHTML=store.products.length?store.products.map((p,i)=>'<div class="item merchant-product"><span><strong>'+p[0]+'</strong><small>'+money(p[1])+' · '+(p[2]||'🛍️')+'</small></span><button class="remove-item" type="button" data-delete-product="'+i+'" aria-label="Eliminar '+p[0]+'">×</button></div>').join(''):'<p class="empty">Todavía no cargaste productos. Agregá el primero desde el formulario.</p>';
  document.querySelectorAll('[data-delete-product]').forEach(b=>b.onclick=()=>{store.products.splice(+b.dataset.deleteProduct,1);saveMerchantStores();renderMerchantDashboard();renderShops();renderFeatured();if(selected.id===store.id)renderProducts();toast('Producto quitado de tu tienda')});
 }
