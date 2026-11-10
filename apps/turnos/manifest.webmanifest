@@ -1,1 +1,23 @@
-{"name":"KODEXA Turnos","short_name":"Turnos","start_url":"./","display":"standalone","background_color":"#0b1220","theme_color":"#101b2d","icons":[]}
+{
+  "name": "Yuna Agenda",
+  "short_name": "Yuna Agenda",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#9333ea",
+  "icons": [
+    {
+      "src": "../../assets/yuna-agenda/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../../assets/yuna-agenda/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "description": "Reservas y turnos para profesionales"
+}
