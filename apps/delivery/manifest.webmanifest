@@ -1,1 +1,23 @@
-{"name":"KODEXA Delivery","short_name":"Delivery","start_url":"./","display":"standalone","background_color":"#0b1220","theme_color":"#101b2d","icons":[]}
+{
+  "name": "Yuna Go",
+  "short_name": "Yuna Go",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#f36b36",
+  "icons": [
+    {
+      "src": "../../assets/yuna-go/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../../assets/yuna-go/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "description": "Pedidos y comercios locales"
+}
