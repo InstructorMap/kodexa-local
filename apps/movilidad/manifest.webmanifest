@@ -1,1 +1,23 @@
-{"name":"KODEXA Movilidad","short_name":"Movilidad","start_url":"./","display":"standalone","background_color":"#0b1220","theme_color":"#101b2d","icons":[]}
+{
+  "name": "Yuna Move",
+  "short_name": "Yuna Move",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "../../assets/yuna-move/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../../assets/yuna-move/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "description": "Traslados y movilidad local"
+}
