@@ -121,7 +121,7 @@ grant update (name, category, description, phone, address, cover_path, updated_a
 grant select on public.store_members to authenticated;
 grant select, insert, delete on public.products to authenticated;
 grant update (name, description, price, image_path, is_active, updated_at) on public.products to authenticated;
-grant select, update (status, updated_at) on public.orders to authenticated;
+grant select on public.orders to authenticated;
 grant select on public.order_items to authenticated;
 
 -- Stores: catálogo público solo activo; propietario/equipo puede ver su espacio.
@@ -177,10 +177,9 @@ using (customer_id = (select auth.uid()) or private.is_store_member(store_id));
 -- El alta de pedidos y líneas se realiza exclusivamente mediante Edge Function/RPC transaccional
 -- que valide usuario, tienda, estado, stock y precios desde la base de datos.
 
-create policy orders_store_update on public.orders
-for update to authenticated
-using (private.is_store_member(store_id, array['manager','staff']))
-with check (private.is_store_member(store_id, array['manager','staff']));
+-- Los cambios de estado se harán mediante una operación confiable que valide
+-- el actor, la pertenencia a la tienda y las transiciones de estado permitidas.
+-- No conceder UPDATE directo sobre orders al navegador.
 
 -- Líneas: cliente y comercio solo leen líneas de pedidos autorizados.
 create policy order_items_customer_or_store_read on public.order_items
@@ -194,7 +193,8 @@ using (
   )
 );
 
--- IMPORTANTE: no se concede INSERT directo a authenticated en orders/order_items.
+-- IMPORTANTE: no se concede INSERT directo a authenticated en orders/order_items,
+-- ni UPDATE directo sobre orders.
 -- Checkout debe implementarse como Edge Function/RPC transaccional que valide
 -- auth.uid(), tienda activa, productos activos, cantidades y precios actuales;
 -- debe calcular subtotal y guardar product_name/unit_price desde products.
