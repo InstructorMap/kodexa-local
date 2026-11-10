@@ -1,0 +1,29 @@
+/* Yuna mobile application shell */
+@media(max-width:767px){
+body.module-delivery,body.module-movilidad,body.module-turnos{padding-bottom:calc(78px + env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+:where(.module-delivery,.module-movilidad,.module-turnos) .page{padding-left:16px;padding-right:16px}
+:where(.module-delivery,.module-movilidad,.module-turnos) .top{height:66px;position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg,#fff) 90%,white);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);margin:0 -16px;padding:0 16px}
+:where(.module-delivery,.module-movilidad,.module-turnos) .top .brand{font-size:19px}
+:where(.module-delivery,.module-movilidad,.module-turnos) .top .pill{font-size:8px}
+:where(.module-delivery,.module-movilidad,.module-turnos) footer{padding-bottom:20px}
+.yuna-bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:80;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));height:calc(70px + env(safe-area-inset-bottom));padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:#ffffffed;backdrop-filter:blur(20px);border-top:1px solid #e7e8ee;box-shadow:0 -8px 30px #101e3310}
+.yuna-bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:transparent;color:#8c93a0;font-size:10px;font-weight:700;cursor:pointer;border-radius:12px}
+.yuna-bottom-nav button.selected{color:var(--accent);background:var(--accent-soft)}
+.yuna-bottom-nav button svg{flex-shrink:0}
+.module-delivery .merchant-cta{font-size:10px}
+.module-delivery .commerce-intro{background:#fff;border:1px solid #f0e4dc;color:#2b2520;padding:17px 18px;box-shadow:0 8px 25px #3e28100b}
+.module-delivery .commerce-intro h1{font-size:32px;color:#29221e}
+.module-delivery .commerce-intro h1 em{color:#ed603d}
+.module-delivery .commerce-intro p{color:#7d7068}
+.module-delivery .commerce-kicker{color:#d75a37}
+.module-delivery .commerce-live{color:#8d7e76}
+.module-delivery .delivery-tabs{display:none}
+.module-delivery .search-wrap{border-radius:16px}
+.module-delivery .shop-panel h2{font-size:20px}
+.module-movilidad .service-intro,.module-turnos .service-intro{padding:17px 19px;min-height:0;border-radius:18px}
+.module-movilidad .service-intro h1,.module-turnos .service-intro h1{font-size:30px}
+.module-movilidad .service-intro-symbol,.module-turnos .service-intro-symbol{display:none}
+.module-movilidad .service-intro p,.module-turnos .service-intro p{font-size:12px}
+:where(.module-movilidad,.module-turnos) .layout .panel{border-radius:18px}
+}
+@media(min-width:768px){.yuna-bottom-nav{display:none}}
